@@ -228,6 +228,17 @@ describe('indexing', function(){
         done();
       });
     });
+
+    it('should add score to hydrated objects if desired', function(done){
+      Talk.search({query:'cool'}, {hydrateWithScore:true}, function(err, res) {
+        res.total.should.eql(1)
+
+        var talk = res.hits[0]
+        talk.should.have.property('score')
+        done();
+      });
+    });
+
   });
 
   describe('Existing Index', function(){
